@@ -43,6 +43,7 @@ app.*.map.json
 /android/app/release
 
 # Firebase config
+lib/firebase_options.dart
 # Hide your Firebase config with .gitignore in Flutter web projects
 # web/firebase-config.js
 
