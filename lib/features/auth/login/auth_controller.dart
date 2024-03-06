@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:katyfestascatalog/core/helps/preference.dart';
 import 'package:katyfestascatalog/core/services/firebase_service.dart';
-import 'package:katyfestascatalog/features/auth/model/auth_request_model.dart';
+import 'package:katyfestascatalog/features/auth/login/model/auth_request_model.dart';
 
 enum AuthState { idle, success, loading, noUser, wrongPassword, error }
 

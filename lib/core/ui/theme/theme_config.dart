@@ -11,11 +11,13 @@ class ThemeConfig {
   ThemeConfig._();
 
   static final theme = ThemeData(
-    scaffoldBackgroundColor: ColorsCustom.i.white,
+    scaffoldBackgroundColor: ColorsCustom.i.grey,
+    //Tema da AppBar
     appBarTheme: AppBarTheme(
-      backgroundColor: ColorsCustom.i.blue,
+      backgroundColor: ColorsCustom.i.red,
       iconTheme: IconThemeData(color: ColorsCustom.i.white),
     ),
+    //Tema dos inputs
     inputDecorationTheme: InputDecorationTheme(
       fillColor: ColorsCustom.i.white,
       filled: true,
@@ -25,12 +27,6 @@ class ThemeConfig {
       focusedBorder: _defaultInputBorder,
       labelStyle: TextStyles.i.textRegular.copyWith(color: ColorsCustom.i.black),
       errorStyle: TextStyles.i.textRegular.copyWith(color: ColorsCustom.i.red),
-    ),
-    dropdownMenuTheme: DropdownMenuThemeData(
-      textStyle: TextStyles.i.textRegular.copyWith(fontSize: 14, color: ColorsCustom.i.grey),
-      menuStyle: MenuStyle(
-        backgroundColor: MaterialStateProperty.all(ColorsCustom.i.white),
-      ),
     ),
   );
 }

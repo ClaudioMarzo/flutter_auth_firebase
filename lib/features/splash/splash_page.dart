@@ -17,8 +17,7 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _checkAuth() async {
     await Future.delayed(const Duration(seconds: 2));
-    final String? globalUserModel =
-        AppPreferences.instance.getString('UserModel');
+    final String? globalUserModel = AppPreferences.instance.getString('UserModel');
     if (globalUserModel == null) {
       Navigator.of(context).pushReplacementNamed('/auth');
     } else {

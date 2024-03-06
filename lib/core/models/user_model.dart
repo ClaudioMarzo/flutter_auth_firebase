@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-UserModel? globalUserModel;
-
 class UserModel {
   final String name;
   final String email;

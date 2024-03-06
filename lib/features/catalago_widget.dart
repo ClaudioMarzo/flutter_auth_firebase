@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:katyfestascatalog/features/auth/accounts/accounths_page.dart';
+import 'package:katyfestascatalog/features/splash/splash_page.dart';
 import 'package:provider/provider.dart';
-import 'package:katyfestascatalog/features/auth/auth_page.dart';
+import 'package:katyfestascatalog/features/auth/login/auth_page.dart';
 import 'package:katyfestascatalog/features/home/homa_page.dart';
 import 'package:katyfestascatalog/core/ui/theme/theme_config.dart';
-import 'package:katyfestascatalog/features/auth/auth_controller.dart';
+import 'package:katyfestascatalog/features/auth/login/auth_controller.dart';
 import 'package:katyfestascatalog/core/services/firebase_service.dart';
 // import 'package:katyfestascatalog/features/splash/splash_page.dart';
 
@@ -21,10 +23,11 @@ class CatalagoWidget extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Katy Festa Catalago',
         theme: ThemeConfig.theme,
-        initialRoute: '/auth',
+        initialRoute: '/accounths',
         routes: {
+          // '/': (_) => const SplashPage(),
           '/auth': (_) => const AuthPage(),
-          // '/auth': (_) => const AuthPage(),
+          '/accounths': (_) => const AccounthsPage(),
           '/home': (_) => const HomaPage(),
         },
       ),

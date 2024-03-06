@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:katyfestascatalog/core/helps/size_extensions.dart';
+import 'package:katyfestascatalog/core/ui/custom/app_bar_custom.dart';
 import 'package:katyfestascatalog/core/ui/custom/buttom_custom.dart';
 import 'package:provider/provider.dart';
-import 'package:katyfestascatalog/features/auth/auth_controller.dart';
+import 'package:katyfestascatalog/features/auth/login/auth_controller.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -48,16 +50,20 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     // final controller = context.watch<AuthController>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
+      appBar: AppBarCustom(
+        titletext: 'Login',
+        isExit: false,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Consumer<AuthController>(builder: (context, controller, child) {
-              return TextField(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 0.0,
+            horizontal: 500,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Email',
@@ -65,28 +71,28 @@ class _AuthPageState extends State<AuthPage> {
                 onChanged: (value) {
                   controller.authRequest = controller.authRequest.copyWith(email: value);
                 },
-              );
-            }),
-            const SizedBox(width: 20),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Passord',
               ),
-              onChanged: (value) {
-                controller.authRequest = controller.authRequest.copyWith(password: value);
-              },
-            ),
-            const SizedBox(width: 20),
-            Consumer<AuthController>(
-              builder: (context, controller, child) {
-                return ButtonCustom(
-                  label: 'LOGIN',
-                  onPressed: controller.state == AuthState.loading ? null : () => controller.loginAction(),
-                );
-              },
-            )
-          ],
+              const SizedBox(height: 20),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Passord',
+                ),
+                onChanged: (value) {
+                  controller.authRequest = controller.authRequest.copyWith(password: value);
+                },
+              ),
+              const SizedBox(height: 30),
+              Consumer<AuthController>(
+                builder: (context, controller, child) {
+                  return ButtonCustom(
+                    label: 'LOGIN',
+                    onPressed: controller.state == AuthState.loading ? null : () => controller.loginAction(),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

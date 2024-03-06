@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+enum MessageCreateGoogle { sucess, accountExist, error }
+
 enum MessageCreate { sucess, emailExist, error }
 
 enum MessageSign { sucess, noUser, wrongPassword, error }
@@ -7,7 +9,12 @@ enum MessageSign { sucess, noUser, wrongPassword, error }
 class FireBaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  // Registrar um novo usuário
+  //Registrar novo usuário com Google
+  Future<Map<MessageCreateGoogle, User?>> createUserWithGoogleAccountt() async {
+    return {MessageCreateGoogle.sucess: null};
+  }
+
+  // Registrar novo usuário
   Future<Map<MessageCreate, User?>> createUserWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential credential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
