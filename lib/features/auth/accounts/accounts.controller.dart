@@ -20,9 +20,6 @@ class AccountsController extends ChangeNotifier {
     if (response.entries.first.key == MessageCreateGoogle.sucess) {
       state = AccountState.sucess;
       notifyListeners();
-    } else if (response.entries.first.key == MessageCreateGoogle.accountExist) {
-      state = AccountState.accountExit;
-      notifyListeners();
     }
     state = AccountState.error;
     notifyListeners();

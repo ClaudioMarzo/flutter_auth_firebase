@@ -13,7 +13,7 @@ class _HomaPageState extends State<HomaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarCustom(
-        titletext: 'Login',
+        titletext: 'Home Page',
         isExit: true,
         onPressed: () => Navigator.of(context).pop(),
       ),

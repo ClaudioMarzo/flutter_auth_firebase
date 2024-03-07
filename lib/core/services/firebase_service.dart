@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:katyfestascatalog/core/providers/auth_providers.dart';
 
-enum MessageCreateGoogle { sucess, accountExist, error }
+enum MessageCreateGoogle { sucess, error }
 
 enum MessageCreate { sucess, emailExist, error }
 
@@ -10,14 +10,19 @@ enum MessageSign { sucess, noUser, wrongPassword, error }
 class FireBaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  //Deslogar da conta do Google
+  Future<void> signOutGoogle() async {
+    AuthProviders().signOutGoogle();
+    await _firebaseAuth.signOut();
+  }
+
   //Registrar novo usuário com Google
-  Future<Map<MessageCreateGoogle, User?>> createUserWithGoogleAccount() async {
-    UserCredential credentialGoogle = await AuthProviders().signInWithGoogle();
-    var responseCreate = await createUserWithEmailAndPassword(credentialGoogle.user!.email!, credentialGoogle.user!.displayName!);
-    if (responseCreate.entries.first.value != null) {
-      return {MessageCreateGoogle.sucess: null};
-    } else if (responseCreate.entries.first.key != MessageCreate.emailExist) {
-      return {MessageCreateGoogle.accountExist: null};
+  Future<Map<MessageCreateGoogle, String?>> createUserWithGoogleAccount() async {
+    AuthCredential credentialGoogle = await AuthProviders().signInWithGoogle();
+    UserCredential validCredential = await FirebaseAuth.instance.signInWithCredential(credentialGoogle);
+    final User? user = validCredential.user;
+    if (user != null) {
+      return {MessageCreateGoogle.sucess: user.uid};
     }
     return {MessageCreateGoogle.error: null};
   }
