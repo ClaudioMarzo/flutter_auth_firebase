@@ -17,16 +17,17 @@ class AppBarCustom extends AppBar {
           title: Center(
             child: Text(
               titletext,
+              textAlign: TextAlign.center,
               style: TextStyles.i.textExtraBold.copyWith(fontSize: 30, color: ColorsCustom.i.white),
             ),
           ),
           actions: <Widget>[
             isExit == false
-                ? Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                    child: IconButton(
-                      onPressed: onPressed,
-                      icon: Icon(
+                ? IconButton(
+                    onPressed: onPressed,
+                    icon: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      child: Icon(
                         Icons.logout,
                         size: 40,
                         color: ColorsCustom.i.white,
