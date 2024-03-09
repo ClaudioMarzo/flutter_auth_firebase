@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:katyfestascatalog/core/providers/auth_providers.dart';
+import 'package:katyfestascatalog/core/providers/google_provider.dart';
 
 enum MessageCreateGoogle { sucess, error }
 
@@ -9,17 +9,18 @@ enum MessageSign { sucess, noUser, wrongPassword, error }
 
 class FireBaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final _googleProvider = GoogleProvider();
 
-  //Deslogar da conta do Google
+  //Deslogar da conta do Google e FireBase
   Future<void> signOutGoogle() async {
-    AuthProviders().signOutGoogle();
+    await _googleProvider.signOut();
     await _firebaseAuth.signOut();
   }
 
   //Registrar novo usuário com Google
   Future<Map<MessageCreateGoogle, String?>> createUserWithGoogleAccount() async {
-    AuthCredential credentialGoogle = await AuthProviders().signInWithGoogle();
-    UserCredential validCredential = await FirebaseAuth.instance.signInWithCredential(credentialGoogle);
+    AuthCredential credentialGoogle = await _googleProvider.signInWithGoogle();
+    UserCredential validCredential = await _firebaseAuth.signInWithCredential(credentialGoogle);
     final User? user = validCredential.user;
     if (user != null) {
       return {MessageCreateGoogle.sucess: user.uid};

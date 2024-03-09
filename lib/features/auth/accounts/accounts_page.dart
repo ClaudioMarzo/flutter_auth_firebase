@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:katyfestascatalog/core/providers/auth_providers.dart';
+import 'package:provider/provider.dart';
+import 'package:katyfestascatalog/core/ui/style/color_style.dart';
 import 'package:katyfestascatalog/core/ui/custom/app_bar_custom.dart';
 import 'package:katyfestascatalog/core/ui/custom/square_buttom_custom.dart';
-import 'package:katyfestascatalog/core/ui/style/color_style.dart';
 import 'package:katyfestascatalog/features/auth/accounts/accounts.controller.dart';
-import 'package:provider/provider.dart';
 
 class AccountsPage extends StatefulWidget {
   const AccountsPage({super.key});
