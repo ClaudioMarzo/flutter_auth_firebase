@@ -5,14 +5,14 @@ class AuthButtonCustom extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget loading;
 
-  final double? width;
-  final double? height;
+  final double buttomWidth;
+  final double buttomHeight;
 
   const AuthButtonCustom({
     super.key,
     required this.onPressed,
-    this.width = 142,
-    this.height = 48,
+    required this.buttomWidth,
+    required this.buttomHeight,
     required this.loading,
   });
 
@@ -20,8 +20,8 @@ class AuthButtonCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: width ?? 0,
-        minHeight: height ?? 0,
+        minWidth: buttomWidth,
+        minHeight: buttomHeight,
       ),
       child: ElevatedButton(
         onPressed: onPressed,

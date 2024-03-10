@@ -28,10 +28,8 @@ class _HomaPageState extends State<HomaPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CustomAppBar(
-        screenSize: screenSize,
         title: 'Home Page',
         onPressedSign: null,
         onPressedOut: () => controller.signOutAll(),

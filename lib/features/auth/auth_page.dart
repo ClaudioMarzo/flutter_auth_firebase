@@ -91,6 +91,8 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     // final controller = context.watch<AuthController>();
+    bool isSmallScreen = MediaQuery.of(context).size.width > 650;
+    bool isButtomScreen = MediaQuery.of(context).size.width > 420;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -105,7 +107,7 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 borderRadius: BorderRadius.circular(2),
               ),
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: isSmallScreen == true ? MediaQuery.of(context).size.width * 0.53 : MediaQuery.of(context).size.width * 0.9,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -121,7 +123,6 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                   TextField(
-                    focusNode: FocusNode(),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'E-mail',
@@ -150,13 +151,15 @@ class _AuthPageState extends State<AuthPage> {
                         child: Consumer<AuthController>(
                           builder: (context, controller, child) {
                             return AuthButtonCustom(
+                              buttomWidth: isButtomScreen == true ? 142 : 110,
+                              buttomHeight: isButtomScreen == true ? 48 : 24,
                               onPressed: controller.login == LoginState.loading ? null : () => controller.loginAccountAction(),
                               loading: controller.login == LoginState.loading
                                   ? const CircularprogressCustom(width: 1.5)
                                   : Text(
                                       textAlign: TextAlign.center,
                                       'ENTRAR',
-                                      style: TextStyles.i.textRegular.copyWith(fontSize: 14, color: ColorsCustom.i.white),
+                                      style: TextStyles.i.textRegular.copyWith(fontSize: isButtomScreen == true ? 14 : 10, color: ColorsCustom.i.white),
                                     ),
                             );
                           },
@@ -168,13 +171,15 @@ class _AuthPageState extends State<AuthPage> {
                         child: Consumer<AuthController>(
                           builder: (context, controller, child) {
                             return AuthButtonCustom(
+                              buttomWidth: isButtomScreen == true ? 142 : 110,
+                              buttomHeight: isButtomScreen == true ? 48 : 24,
                               onPressed: controller.register == RegisterFireBaseState.loading ? null : () => controller.createAccountAction(),
                               loading: controller.register == RegisterFireBaseState.loading
                                   ? const CircularprogressCustom(width: 1.5)
                                   : Text(
                                       textAlign: TextAlign.center,
                                       'CADASTRAR',
-                                      style: TextStyles.i.textRegular.copyWith(fontSize: 14, color: ColorsCustom.i.white),
+                                      style: TextStyles.i.textRegular.copyWith(fontSize: isButtomScreen == true ? 14 : 10, color: ColorsCustom.i.white),
                                     ),
                             );
                           },
@@ -190,7 +195,7 @@ class _AuthPageState extends State<AuthPage> {
                         Text('Ou continuar com ',
                             textAlign: TextAlign.center,
                             style: TextStyles.i.textLight.copyWith(
-                              fontSize: 14,
+                              fontSize: isButtomScreen ? 14 : 10,
                               color: ColorsCustom.i.black,
                             )),
                         const Expanded(child: Divider(color: Colors.grey, height: 1, thickness: 1, indent: 20, endIndent: 20)),
@@ -204,7 +209,7 @@ class _AuthPageState extends State<AuthPage> {
                         return GoogleButtomCustom(
                           onTap: () => controller.accountGoogleAction(),
                           imagePath: 'assets/images/google.png',
-                          heightImage: 30,
+                          heightImage: isButtomScreen == true ? 30 : 20,
                         );
                       },
                     ),
@@ -213,7 +218,7 @@ class _AuthPageState extends State<AuthPage> {
                     'Ao prosseguir, você concorda com nossos Termos de Uso e confirma que leu nossa Politicia de Prividade.',
                     textAlign: TextAlign.center,
                     style: TextStyles.i.textLight.copyWith(
-                      fontSize: 14,
+                      fontSize: isButtomScreen ? 14 : 10,
                       color: ColorsCustom.i.black,
                     ),
                   ),
