@@ -1,31 +1,41 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:katyfestascatalog/core/providers/google_provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-enum MessageCreateGoogle { sucess, error }
+enum MessageCreateGoogle { sucess, popupClosed, error }
 
 enum MessageCreate { sucess, emailExist, error }
 
 enum MessageSign { sucess, infoInvalid, error }
 
+enum MessageSingOut { sucess, error }
+
 class FireBaseService {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final _googleProvider = GoogleProvider();
 
   //Deslogar da conta do Google e FireBase
-  Future<void> signOutGoogle() async {
-    await _googleProvider.signOut();
-    await _firebaseAuth.signOut();
+  Future<MessageSingOut> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
+      return MessageSingOut.sucess;
+    } catch (e) {
+      return MessageSingOut.error;
+    }
   }
 
   //Registrar novo usuário com Google
-  Future<Map<MessageCreateGoogle, String?>> createUserWithGoogleAccount() async {
-    AuthCredential credentialGoogle = await _googleProvider.signInWithGoogle();
-    UserCredential validCredential = await _firebaseAuth.signInWithCredential(credentialGoogle);
-    final User? user = validCredential.user;
-    if (user != null) {
-      return {MessageCreateGoogle.sucess: user.uid};
+  Future<Map<MessageCreateGoogle, User?>> createUserWithGoogleAccount() async {
+    GoogleAuthProvider authProvider = GoogleAuthProvider();
+    try {
+      final UserCredential userCredential = await _firebaseAuth.signInWithPopup(authProvider);
+      return {MessageCreateGoogle.sucess: userCredential.user};
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'popup-closed-by-user') {
+        return {MessageCreateGoogle.popupClosed: null};
+      }
+      return {MessageCreateGoogle.error: null};
     }
-    return {MessageCreateGoogle.error: null};
   }
 
   // Registrar novo usuário

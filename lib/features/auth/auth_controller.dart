@@ -1,33 +1,42 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:katyfestascatalog/core/services/firebase_service.dart';
 import 'package:katyfestascatalog/features/auth/model/auth_request_model.dart';
 
-enum LoginState { idle, loading, success, infoInvalid, error }
+enum RegisterGoogleState { idle, loading, success, popupClosed, error }
 
-enum RegisterState { idle, loading, success, accountExit, error }
-
-enum RegisterGoogleState { idle, loading, success, error }
+enum RegisterFireBaseState { idle, loading, success, accountExit, error }
 
 enum InputState { idle, validInput, invalidEmail, empty }
+
+enum LoginState { idle, loading, success, infoInvalid, error }
 
 class AuthController extends ChangeNotifier {
   final FireBaseService client;
   LoginState login = LoginState.idle;
   InputState inputs = InputState.idle;
-  RegisterState register = RegisterState.idle;
+  RegisterFireBaseState register = RegisterFireBaseState.idle;
   RegisterGoogleState google = RegisterGoogleState.idle;
   AuthRequestModel authRequest = AuthRequestModel('', '');
 
   AuthController(this.client);
 
+  void idleAllState() {
+    login = LoginState.idle;
+    inputs = InputState.idle;
+    register = RegisterFireBaseState.idle;
+    google = RegisterGoogleState.idle;
+    notifyListeners();
+  }
+
   Future<void> loginAccountAction() async {
     login = LoginState.loading;
-    register = RegisterState.idle;
+    register = RegisterFireBaseState.idle;
+    google = RegisterGoogleState.idle;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
-    inputs = validatingEntries(authRequest.email, authRequest.password);
+    inputs = _validatingEntries(authRequest.email, authRequest.password);
     notifyListeners();
     if (inputs == InputState.validInput) {
       var response = await client.signInWithEmailAndPassword(authRequest.email, authRequest.password);
@@ -51,27 +60,28 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> createAccountAction() async {
-    register = RegisterState.loading;
+    register = RegisterFireBaseState.loading;
     login = LoginState.idle;
+    google = RegisterGoogleState.idle;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
-    inputs = validatingEntries(authRequest.email, authRequest.password);
+    inputs = _validatingEntries(authRequest.email, authRequest.password);
     notifyListeners();
     if (inputs == InputState.validInput) {
       var response = await client.createUserWithEmailAndPassword(authRequest.email, authRequest.password);
       if (response.entries.first.value != null) {
-        register = RegisterState.success;
+        register = RegisterFireBaseState.success;
         notifyListeners();
       } else if (response.entries.first.key == MessageCreate.emailExist) {
-        register = RegisterState.accountExit;
+        register = RegisterFireBaseState.accountExit;
         notifyListeners();
       } else {
-        register = RegisterState.error;
+        register = RegisterFireBaseState.error;
         notifyListeners();
       }
     } else {
-      register = RegisterState.idle;
+      register = RegisterFireBaseState.idle;
       inputs = InputState.idle;
       notifyListeners();
     }
@@ -79,23 +89,29 @@ class AuthController extends ChangeNotifier {
 
   Future<void> accountGoogleAction() async {
     login = LoginState.idle;
-    register = RegisterState.idle;
+    register = RegisterFireBaseState.idle;
     google = RegisterGoogleState.loading;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     var response = await client.createUserWithGoogleAccount();
     if (response.entries.first.key == MessageCreateGoogle.sucess) {
       google = RegisterGoogleState.success;
+      inputs = InputState.idle;
+      notifyListeners();
+    } else if (response.entries.first.key == MessageCreateGoogle.popupClosed) {
+      google = RegisterGoogleState.popupClosed;
+      inputs = InputState.idle;
       notifyListeners();
     } else {
       google = RegisterGoogleState.error;
+      inputs = InputState.idle;
       notifyListeners();
     }
   }
 }
 
-InputState validatingEntries(String email, String senha) {
+InputState _validatingEntries(String email, String senha) {
   if (email.isEmpty || senha.isEmpty) {
     return InputState.empty;
   }

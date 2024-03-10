@@ -26,6 +26,10 @@ class AppPreferences {
   int? getInt(String key) {
     return prefs!.getInt(key);
   }
+
+  bool? getBool(String key) {
+    return prefs!.getBool(key);
+  }
 }
 
 Future resetPreferences() async {

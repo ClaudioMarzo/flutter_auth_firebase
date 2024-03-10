@@ -41,7 +41,7 @@ class _AuthPageState extends State<AuthPage> {
             ColorsCustom.i.red,
             ContentType.help,
           );
-        } else if (controller.register == RegisterState.accountExit) {
+        } else if (controller.register == RegisterFireBaseState.accountExit) {
           NotificationCustom.showSnackBar(
             context,
             'Duplicidade',
@@ -49,7 +49,7 @@ class _AuthPageState extends State<AuthPage> {
             ColorsCustom.i.darkyellow,
             ContentType.help,
           );
-        } else if (controller.register == RegisterState.error || controller.login == LoginState.infoInvalid) {
+        } else if (controller.register == RegisterFireBaseState.error || controller.login == LoginState.infoInvalid || controller.google == RegisterGoogleState.error) {
           NotificationCustom.showSnackBar(
             context,
             'Aviso',
@@ -65,7 +65,7 @@ class _AuthPageState extends State<AuthPage> {
             ColorsCustom.i.black,
             ContentType.help,
           );
-        } else if (controller.login == LoginState.success) {
+        } else if (controller.login == LoginState.success || controller.google == RegisterGoogleState.success) {
           final snackBar = SnackBar(
             backgroundColor: ColorsCustom.i.gree,
             behavior: SnackBarBehavior.floating,
@@ -168,8 +168,8 @@ class _AuthPageState extends State<AuthPage> {
                         child: Consumer<AuthController>(
                           builder: (context, controller, child) {
                             return AuthButtonCustom(
-                              onPressed: controller.register == RegisterState.loading ? null : () => controller.createAccountAction(),
-                              loading: controller.register == RegisterState.loading
+                              onPressed: controller.register == RegisterFireBaseState.loading ? null : () => controller.createAccountAction(),
+                              loading: controller.register == RegisterFireBaseState.loading
                                   ? const CircularprogressCustom(width: 1.5)
                                   : Text(
                                       textAlign: TextAlign.center,
@@ -182,9 +182,20 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Divider(color: Colors.grey, height: 1, thickness: 1, indent: 20, endIndent: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        const Expanded(child: Divider(color: Colors.grey, height: 1, thickness: 1, indent: 20, endIndent: 20)),
+                        Text('Ou continuar com ',
+                            textAlign: TextAlign.center,
+                            style: TextStyles.i.textLight.copyWith(
+                              fontSize: 14,
+                              color: ColorsCustom.i.black,
+                            )),
+                        const Expanded(child: Divider(color: Colors.grey, height: 1, thickness: 1, indent: 20, endIndent: 20)),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
