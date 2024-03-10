@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:katyfestascatalog/core/ui/style/color_style.dart';
-import 'package:katyfestascatalog/core/ui/style/text_styles.dart';
 
 class GoogleButtomCustom extends StatelessWidget {
   final String imagePath;

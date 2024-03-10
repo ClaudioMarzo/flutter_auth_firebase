@@ -26,6 +26,7 @@ class AuthController extends ChangeNotifier {
     inputs = InputState.idle;
     register = RegisterFireBaseState.idle;
     google = RegisterGoogleState.idle;
+    authRequest = AuthRequestModel('', '');
     notifyListeners();
   }
 
@@ -72,12 +73,15 @@ class AuthController extends ChangeNotifier {
       var response = await client.createUserWithEmailAndPassword(authRequest.email, authRequest.password);
       if (response.entries.first.value != null) {
         register = RegisterFireBaseState.success;
+        inputs = InputState.idle;
         notifyListeners();
       } else if (response.entries.first.key == MessageCreate.emailExist) {
         register = RegisterFireBaseState.accountExit;
+        inputs = InputState.idle;
         notifyListeners();
       } else {
         register = RegisterFireBaseState.error;
+        inputs = InputState.idle;
         notifyListeners();
       }
     } else {

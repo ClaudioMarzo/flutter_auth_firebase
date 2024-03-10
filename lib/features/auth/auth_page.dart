@@ -78,6 +78,7 @@ class _AuthPageState extends State<AuthPage> {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
             (reason) {
+              controller.idleAllState();
               if (reason != SnackBarClosedReason.action) {
                 Navigator.of(context).pushReplacementNamed('/home');
               }

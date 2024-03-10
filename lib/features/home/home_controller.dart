@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:katyfestascatalog/core/services/firebase_service.dart';
 
 enum Logout { idle, sucess, error }
