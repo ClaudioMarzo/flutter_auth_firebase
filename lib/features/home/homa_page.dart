@@ -15,7 +15,7 @@ class _HomaPageState extends State<HomaPage> {
       appBar: AppBarCustom(
         titletext: 'Home Page',
         isExit: true,
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Navigator.of(context).pushReplacementNamed('/auth'),
       ),
       body: Container(),
     );

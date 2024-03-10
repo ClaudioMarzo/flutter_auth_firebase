@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:katyfestascatalog/core/ui/style/color_style.dart';
+import 'package:katyfestascatalog/core/ui/style/text_styles.dart';
 
-class SquareButtomCustom extends StatelessWidget {
+class GoogleButtomCustom extends StatelessWidget {
   final String imagePath;
+  final double heightImage;
   final Function()? onTap;
-  const SquareButtomCustom({
+  const GoogleButtomCustom({
     super.key,
     required this.imagePath,
     required this.onTap,
+    required this.heightImage,
   });
 
   @override
@@ -15,15 +18,19 @@ class SquareButtomCustom extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border.all(color: ColorsCustom.i.white),
+          border: Border.all(
+            color: ColorsCustom.i.blue,
+            width: 0.3,
+            style: BorderStyle.solid,
+          ),
           borderRadius: BorderRadius.circular(16),
           color: ColorsCustom.i.white,
         ),
         child: Image.asset(
           imagePath,
-          height: 40,
+          height: heightImage,
         ),
       ),
     );

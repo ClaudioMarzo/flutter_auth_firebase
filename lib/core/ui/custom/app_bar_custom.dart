@@ -22,7 +22,7 @@ class AppBarCustom extends AppBar {
             ),
           ),
           actions: <Widget>[
-            isExit == false
+            isExit == true
                 ? IconButton(
                     onPressed: onPressed,
                     icon: Padding(

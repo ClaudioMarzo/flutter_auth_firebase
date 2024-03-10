@@ -5,7 +5,7 @@ enum MessageCreateGoogle { sucess, error }
 
 enum MessageCreate { sucess, emailExist, error }
 
-enum MessageSign { sucess, noUser, wrongPassword, error }
+enum MessageSign { sucess, infoInvalid, error }
 
 class FireBaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -50,10 +50,8 @@ class FireBaseService {
     } on FirebaseAuthException catch (e) {
       MessageSign handleFirebaseAuthException(FirebaseAuthException e) {
         switch (e.code) {
-          case 'user-not-found':
-            return MessageSign.noUser;
-          case 'wrong-password':
-            return MessageSign.wrongPassword;
+          case 'invalid-credential':
+            return MessageSign.infoInvalid;
           default:
             return MessageSign.error;
         }

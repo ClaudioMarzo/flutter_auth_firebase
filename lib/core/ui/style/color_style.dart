@@ -20,6 +20,7 @@ class ColorsCustom {
   Color get lightgree => const Color.fromRGBO(95, 217, 112, 1);
   Color get darkgree => const Color.fromRGBO(0, 73, 26, 1);
   Color get grey => const Color.fromRGBO(221, 222, 223, 1);
+  Color get darkyellow => const Color.fromARGB(255, 150, 100, 12);
   Color get yellow => const Color.fromRGBO(255, 186, 67, 1);
 }
 
