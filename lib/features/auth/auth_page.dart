@@ -57,6 +57,14 @@ class _AuthPageState extends State<AuthPage> {
             ColorsCustom.i.darkyellow,
             ContentType.help,
           );
+        } else if (controller.register == RegisterFireBaseState.success) {
+          NotificationCustom.showSnackBar(
+            context,
+            'Sucesso!',
+            'Usuário Cadastrado',
+            ColorsCustom.i.gree,
+            ContentType.success,
+          );
         } else if (controller.login == LoginState.error) {
           NotificationCustom.showSnackBar(
             context,
