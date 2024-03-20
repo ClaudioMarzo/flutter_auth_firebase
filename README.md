@@ -1,11 +1,17 @@
-# katyfestascatalog
+# katyFestaAuth
 
 ### Visão geral
-- O **KatyFestaCatalog** é um projeto de aplicativo web construído em Flutter e integrado aos serviços do Firebase.
-- O principal propósito deste projeto é proporcionar aos visitantes do site a facilidade de selecionar peças para aluguel ou conjuntos de decoração para festas.
-- Depois de escolherem os produtos desejados, os usuários podem confirmar suas compras através do WhatsApp, onde enviarão um PDF dos itens selecionados para finalizar a transação.
+- ANO: 2024/1
+- OBJETIVO: O **KatyFestaAuth** é uma POC para aplicar o serviço dO FireBase Authentication.
+- CONCLUSAO: Com algumas implementação prévia, percebe-se a necessidade de utilziar um padrão de projeto mais robusto, flutter_moular(injeção de depedência) e flutter_bloc(gerenciamento de estado) ao inves do Provider.
 
-# Arquitetura
+# Screen
+- Valida de Imput: Impout vazio e Imput Invalido
+- Validação de Login (Email e Senha) - Sucesso, Erro, Senha Incorreta.
+- Validação de Cadastro (Email e Senha) - Sucesso , Erro, Usuário já Cadastrado.
+- Validação de Cadastro com Google - Sucesso, Erro, Usuário já Cadastrado.
+  
+![login](https://github.com/ClaudioMarzo/flutter_auth_frebase/assets/78761536/1c188741-41ab-4b5d-9fb4-9261f587baec)
 
 # Instalação e Configuração 
 
