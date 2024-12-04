@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:katyfestascatalog/core/ui/style/color_style.dart';
 import 'package:katyfestascatalog/core/ui/style/text_styles.dart';
-import 'package:katyfestascatalog/features/home/home_controller.dart';
+import 'package:katyfestascatalog/features/presentation/home/home_controller.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
