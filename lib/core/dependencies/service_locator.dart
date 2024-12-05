@@ -5,7 +5,7 @@ import 'package:katyfestascatalog/features/domain/interface/interface_auth_googl
 import 'package:katyfestascatalog/features/domain/repositories/auth_repository_google.dart';
 import 'package:katyfestascatalog/features/domain/interface/interface_auth_firebase.dart';
 import 'package:katyfestascatalog/features/domain/repositories/auth_repository_firebase.dart';
-import 'package:katyfestascatalog/features/presentation/authentication/authentication_controller.dart';
+import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/authentication_controller.dart';
 
 final getIt = GetIt.instance;
 
@@ -27,6 +27,6 @@ void setupServiceLocator() {
 
   // Adicionando depedência do InterfaceAuthFireBase
   getIt.registerSingleton<AuthenticationStateController>(
-    AuthenticationStateController(getIt<InterfaceAuthFireBase>()),
+    AuthenticationStateController(getIt<InterfaceAuthFireBase>(), getIt<InterfaceAuthGoogle>()),
   );
 }
