@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:katyfestascatalog/core/helps/notification.dart';
+import 'package:katyfestascatalog/core/helps/notification_value.dart';
 import 'package:katyfestascatalog/core/ui/style/color_style.dart';
 import 'package:katyfestascatalog/core/ui/style/text_styles.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:katyfestascatalog/core/dependencies/service_locator.dart';
 import 'package:katyfestascatalog/core/ui/custom/circularprogress_custom.dart';
-import 'package:katyfestascatalog/features/presentation/auth/ui/auth_buttom_custom.dart';
-import 'package:katyfestascatalog/features/presentation/auth/ui/google_buttom_custom.dart';
-import 'package:katyfestascatalog/features/presentation/authentication/authentication_state.dart';
-import 'package:katyfestascatalog/features/presentation/authentication/authentication_controller.dart';
+import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/ui/auth_buttom_custom.dart';
+import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/ui/google_buttom_custom.dart';
+import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/authentication_state.dart';
+import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/authentication_controller.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
