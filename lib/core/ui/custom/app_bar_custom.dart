@@ -49,16 +49,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
             ),
             if (isSmallScreen)
-              InkWell(
-                onTap: widget.onPressedSign,
-                child: Text(
-                  'Inscrever-se',
-                  style: TextStyles.i.textButtonLabel.copyWith(fontSize: 20, color: ColorsCustom.i.white),
+              if(widget.onPressedSign != null)
+                InkWell(
+                  onTap: widget.onPressedSign,
+                  child: Text(
+                    'Inscrever-se',
+                    style: TextStyles.i.textButtonLabel.copyWith(fontSize: 20, color: ColorsCustom.i.white),
+                  ),
                 ),
-              ),
-            SizedBox(
-              width: screenSize.width / 50,
-            ),
+            SizedBox(width: screenSize.width / 50),
             if (isSmallScreen)
               Consumer<HomeController>(
                 builder: (context, controller, child) {
