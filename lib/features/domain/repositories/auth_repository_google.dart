@@ -14,8 +14,8 @@ class AuthRepositoryGoogle implements InterfaceAuthGoogle{
     try {
       final UserCredential userCredential = await firebaseAuth.signInWithPopup(authProvider);
       return  userCredential.user;
-    } on FirebaseAuthException {
-      return null;
+    } on FirebaseAuthException catch (e) {
+      throw e.code;
     }
   }
 

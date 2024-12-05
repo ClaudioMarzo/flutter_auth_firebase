@@ -11,8 +11,8 @@ class AuthRepositoryFirebase implements InterfaceAuthFireBase{
     try {
       UserCredential credential = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       return credential.user;
-    } catch (e){
-      return null;
+    } on FirebaseAuthException catch (e) {
+      throw e.code; 
     }
   }
 
@@ -22,14 +22,7 @@ class AuthRepositoryFirebase implements InterfaceAuthFireBase{
       UserCredential credential = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       return credential.user;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'user-not-found':
-          throw Exception('No user found for that email.');
-        case 'wrong-password':
-          throw Exception('Wrong password provided for that user.');
-        default:
-          throw Exception('Authentication error: ${e.message}');
-      }
+      throw e.code;
     }
   }
 
