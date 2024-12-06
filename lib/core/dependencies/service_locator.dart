@@ -1,11 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:katyfestascatalog/features/domain/interface/interface_auth_google.dart';
-import 'package:katyfestascatalog/features/domain/repositories/auth_repository_google.dart';
-import 'package:katyfestascatalog/features/domain/interface/interface_auth_firebase.dart';
-import 'package:katyfestascatalog/features/domain/repositories/auth_repository_firebase.dart';
-import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/authentication_controller.dart';
+import 'package:katyfestascatalog/features/service/interfaces/i_auth_firebase.dart';
+import 'package:katyfestascatalog/features/service/auth_service_firebase.dart';
+import 'package:katyfestascatalog/features/viewmodels/auth_view_model.dart';
 
 final getIt = GetIt.instance;
 
@@ -15,18 +13,13 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn());
   getIt.registerLazySingleton<GoogleAuthProvider>(() => GoogleAuthProvider());
 
-  // Adicionando depedência do Google na interface e repositórios
-  getIt.registerLazySingleton<InterfaceAuthGoogle>(
-    () => AuthRepositoryGoogle(getIt<FirebaseAuth>(), getIt<GoogleSignIn>(), getIt<GoogleAuthProvider>()),
-  );
-
   // Adicionando depedência do FireBase na interface e repositórios
-  getIt.registerLazySingleton<InterfaceAuthFireBase>(
-    () => AuthRepositoryFirebase(getIt<FirebaseAuth>()),
+  getIt.registerLazySingleton<IAuthFireBase>(
+    () => AuthServiceFirebase(getIt<FirebaseAuth>(), getIt<GoogleAuthProvider>(), getIt<GoogleSignIn>(),),
   );
 
-  // Adicionando depedência do InterfaceAuthFireBase
-  getIt.registerSingleton<AuthenticationStateController>(
-    AuthenticationStateController(getIt<InterfaceAuthFireBase>(), getIt<InterfaceAuthGoogle>()),
+  // Adicionando depedência do IAuthFireBase
+  getIt.registerSingleton<AuthViewModel>(
+    AuthViewModel(getIt<IAuthFireBase>()),
   );
 }
