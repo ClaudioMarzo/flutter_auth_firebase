@@ -8,7 +8,7 @@ import 'package:katyfestascatalog/core/ui/custom/circularprogress_custom.dart';
 import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/ui/auth_buttom_custom.dart';
 import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/ui/google_buttom_custom.dart';
 import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/authentication_state.dart';
-import 'package:katyfestascatalog/features/presentation/auth_valueNotifie/authentication_controller.dart';
+import 'package:katyfestascatalog/features/viewmodels/auth_view_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late AuthenticationStateController _controller;
+  late AuthViewModel _controller;
 
   String email = "";
   String password = "";
@@ -26,8 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _controller = getIt<AuthenticationStateController>();
-
+    _controller = getIt<AuthViewModel>();
     setupStateListener(
         _controller.loginFirebaseState,
         onSuccess: (state) => showSuccessSnackbar(state, route: '/home'),
@@ -95,8 +94,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    _controller.loginFirebaseState.dispose();
-    _controller.registenFirebaseState.dispose();
+    _controller.authRequest;
+    _controller.credentialDispose();
     super.dispose();
   }
 

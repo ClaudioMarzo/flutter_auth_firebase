@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:katyfestascatalog/core/services/firebase_service.dart';
-import 'package:katyfestascatalog/features/data/models/auth_request_model.dart';
+import 'package:katyfestascatalog/features/models/auth_request_model.dart';
 
 enum RegisterGoogleState { idle, loading, success, popupClosed, error }
 
@@ -17,7 +17,7 @@ class AuthController extends ChangeNotifier {
   InputState inputs = InputState.idle;
   RegisterFireBaseState register = RegisterFireBaseState.idle;
   RegisterGoogleState google = RegisterGoogleState.idle;
-  AuthRequestModel authRequest = AuthRequestModel('', '');
+  UserModel authRequest = UserModel('', '');
 
   AuthController(this.client);
 
@@ -26,7 +26,7 @@ class AuthController extends ChangeNotifier {
     inputs = InputState.idle;
     register = RegisterFireBaseState.idle;
     google = RegisterGoogleState.idle;
-    authRequest = AuthRequestModel('', '');
+    authRequest = UserModel('', '');
     notifyListeners();
   }
 
